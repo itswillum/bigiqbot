@@ -127,9 +127,9 @@ if len(arguments.args) > 0:
                 playerList.append(player.name)
             if len(game.votedPlayers) == len(game.players):
               if game.currentState == "truth":
-                arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth and they were correct"], ['ms', game.channel, game.next_turn()]]
+                arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth and they were all correct"], ['ms', game.channel, game.next_turn()]]
               else:
-                arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth and but it was a fib"], ['ms', game.channel, game.next_turn()]]
+                arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth but it was a fib"], ['ms', game.channel, game.next_turn()]]
             else:
               arguments.messageReturn = "%s has called a truth waiting on %s" % (arguments.currentmessage.author, ', '.join(playerList))
         else:

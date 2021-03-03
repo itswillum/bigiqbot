@@ -9,7 +9,8 @@ if len(arguments.args) == 1:
     fibHelp.add_field(name="%sjoin fib [id]" % (bot.prefix), value="Joins a game of fib in the channel. If you can't join,t he game probably already started.", inline=False)
     fibHelp.add_field(name="%sstart fib [id]" % (bot.prefix), value="Starts the game of fib once everyone has joined; can only be run by the person who created the round. ", inline=False)
     fibHelp.add_field(name="%sfib [id] input" % (bot.prefix), value="This command should be run in your dms after you get your list of cards. If the game of fib is 'fib 1,' and you want to place a King of spades and a 6 of hearts, type `fib 1 input ks 6h`.", inline=False)
-    fibHelp.add_field(name="%s" % (bot.prefix), value="-", inline=False)
+    fibHelp.add_field(name="%scards" % (bot.prefix), value="Sends the most up-to-date hand in your dms.", inline=False)
+		fibHelp.add_field(name="%send" % (bot.prefix), value="Ends the game of fib. It can only be run by the creator.", inline=False)
 		
     arguments.messageReturn = ['embed', arguments.currentmessage.channel,fibHelp] 
   if arguments.args[0] == "trump":

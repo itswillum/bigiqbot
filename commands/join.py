@@ -15,7 +15,7 @@ if len(arguments.args) == 2:
             arguments.messageReturn = "%s, you are already in fib lobby %s" % (arguments.currentmessage.author, arguments.args[1])
           else:	
             fibcontroller.runningGamesClasses[fibcontroller.runningGamesNumber.index(int(arguments.args[1]))].add_player(arguments.currentmessage.author)
-            arguments.messageReturn = ['mul', 2,["embed", arguments.currentmessage.author, hasJoined],['ms', fibcontroller.runningGamesClasses[int(arguments.args[1]) - 1].channel, "%s has join fib lobby %s" % (arguments.currentmessage.author, arguments.args[1])]]
+            arguments.messageReturn = ['mul', 2,["embed", arguments.currentmessage.author, hasJoined],['ms', fibcontroller.runningGamesClasses[int(arguments.args[1]) - 1].channel, "%s has joined fib lobby %s" % (arguments.currentmessage.author, arguments.args[1])]]
         else:
           arguments.currentmessage = "That game has already started"
     else:

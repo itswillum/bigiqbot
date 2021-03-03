@@ -94,7 +94,7 @@ class fib_game():
       self.currentCardNum = cardsNum[0]
     self.currentState = "null"
     self.votedPlayers = []
-    return "It is <@%s> turn and they are on %s" % (self.players[self.players.index(self.currentTurn)].id, self.currentCardNum)
+    return "It is <@%s> 's turn and they are on %s" % (self.players[self.players.index(self.currentTurn)].id, self.currentCardNum)
   def set_deckId(self, deck_id):
     self.deckId = deck_id
   def add_player(self, player):
