@@ -15,6 +15,32 @@ cardsNum = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen"
 
 
 
+def cardJsontoRead(num, suit):
+  number = "null"
+  suiter = "null"
+  try:
+    int(num)
+    number = num
+  except:
+    if num == "ACE":
+      number = "Ace"
+    if num == "JACK":
+      number = "Jack"
+    if num == "QUEEN":
+      number = "Queen"
+    if num == "KING":
+      number = "King"
+  if suit == "SPADES":
+    suiter = ":spades:"
+  if suit == "HEARTS":
+    suiter = ":hearts:"
+  if suit == "DIAMONDS":
+    suiter = ":diamonds:"
+  if suit == "CLUBS":
+    suiter = ":clubs:"
+  return number + suiter
+    
+
 def userToUserName(user):
   return user.name + "#" + user.discriminator
 
@@ -34,6 +60,7 @@ def draw_cards(deckID, cpp):
   response = requests.get("https://deckofcardsapi.com/api/deck/%s/draw/?count=%d" % (deckID, cpp))
   json_data = json.loads(response.text)
   return json_data
+
 
 
 
@@ -152,3 +179,30 @@ class fib_game():
     cardEmbed.add_field(name="Hearts :hearts:", value=', '.join(hearts), inline=False)
     cardEmbed.add_field(name="Diamonds :diamonds:", value=', '.join(diamonds), inline=False)
     return cardEmbed
+  def addToDiscard(self, deckID, table):
+    bigTable = []
+    for item in table:
+      num = "null"
+      suit = "null"
+      if item.split(':')[0] == "10":
+        num = "0"
+      else:
+        num = item[0].upper()
+      if item.split(':')[1] == "spades":
+        suit = "S"
+      if item.split(':')[1] == "hearts":
+        suit = "H"
+      if item.split(':')[1] == "diamonds":
+        suit = "D"
+      if item.split(':')[1] == "clubs":
+        suit = "C"
+      bigTable.append(num + suit)
+
+    requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/add/?cards=%s') % (deckID,self.gameId, ','.join(bigTable))
+def returnPile(deckID):
+  response = requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard/list/' % (deckID))
+  json_data = json.loads(response.text)
+  table = []
+  for item in json_data['piles']['discard']:
+    table.append(cardJsontoRead(item['value'], item['suit']))
+  return table
