@@ -2,6 +2,7 @@ import bot
 import requests
 import json
 import math
+import discord
 
 cardsPerhand = 12
 
@@ -113,13 +114,13 @@ class fib_game():
       self.playerCardsNumber[self.players.index(player)].append(cardToNumber(item))
   def DeletePlayerCard(self, player, table):
     for item in table:
-      for seconditem in self.playersCards[self.player.index(player)]:
+      for seconditem in self.playersCards[self.players.index(player)]:
         if seconditem == item:
-          self.playersCards[self.player.index(player)].pop(self.playersCards[self.player.index(player)].index(seconditem))
+          self.playersCards[self.players.index(player)].pop(self.playersCards[self.players.index(player)].index(seconditem))
     for item in table:
-      for seconditem in self.playersCardsNumber[self.player.index(player)]:
+      for seconditem in self.playerCardsNumber[self.players.index(player)]:
         if seconditem == cardToNumber(item):
-          self.playersCardsNumber[self.player.index(player)].pop(self.playersCardsNumber[self.player.index(player)].index(seconditem))
+          self.playerCardsNumber[self.players.index(player)].pop(self.playerCardsNumber[self.players.index(player)].index(seconditem))
   def playerContains(self, player, item):
     if item in self.playersCards[self.players.index(player)]:
       return True
@@ -130,3 +131,24 @@ class fib_game():
       if self.playerContains(player, item) == True:
         return player
     return False
+  def showCards(self, player):
+    cardEmbed = discord.Embed(title="FIB %d cards" % (self.gameId), description="These are your cards", color=0xd10a07)
+            
+    hearts = []
+    spades = []
+    diamonds = []
+    clubs = []
+    for item in self.playersCards[self.players.index(player)]:
+      if item.split(':')[1] == "spades":
+        spades.append(item)
+      if item.split(':')[1] == "clubs":
+        clubs.append(item)
+      if item.split(':')[1] == "hearts":
+        hearts.append(item)
+      if item.split(':')[1] == "diamonds":
+        diamonds.append(item)
+    cardEmbed.add_field(name="Spades :spades:", value=', '.join(spades), inline=False)
+    cardEmbed.add_field(name="Clubs :clubs:", value=', '.join(clubs), inline=False)
+    cardEmbed.add_field(name="Hearts :hearts:", value=', '.join(hearts), inline=False)
+    cardEmbed.add_field(name="Diamonds :diamonds:", value=', '.join(diamonds), inline=False)
+    return cardEmbed

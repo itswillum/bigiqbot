@@ -16,6 +16,7 @@ class command():
     commandList.append(self)
 
 def runCommand(program, fullmessage, message):
+  arguments.messageReturn = "No Message"
   if os.path.exists("commands/" + program.fileoutputc):
     for word in fullmessage:
       if fullmessage.index(word) != 0:
