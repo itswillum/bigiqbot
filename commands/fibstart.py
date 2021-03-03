@@ -109,6 +109,7 @@ if len(arguments.args) > 0:
             for item in arguments.args[2:]:
               table.append(codeToRead(item))
             fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].DeletePlayerCard(arguments.currentmessage.author, table)
+            fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].addToDiscard(table)
             arguments.messageReturn = ['mul', 2, ['ms', arguments.currentmessage.author, "Your response has been recorded and shared to the group"], ['ms', fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].channel, "%s has placed %d %s" % (arguments.currentmessage.author, len(arguments.args) - 2, fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentCardNum)]]
       else:
         arguments.messageReturn = "Not your turn IDOT"
@@ -124,6 +125,7 @@ if len(arguments.args) > 0:
                 arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
               else:
                 arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were not correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
+                game.AddPlayerCard(arguments.currentmessage.author,game.returnPile())
             if arguments.args[1] == "t":
               game.votedPlayers.append(arguments.currentmessage.author)
               playerList  = []

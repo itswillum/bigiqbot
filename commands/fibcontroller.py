@@ -179,7 +179,7 @@ class fib_game():
     cardEmbed.add_field(name="Hearts :hearts:", value=', '.join(hearts), inline=False)
     cardEmbed.add_field(name="Diamonds :diamonds:", value=', '.join(diamonds), inline=False)
     return cardEmbed
-  def addToDiscard(self, deckID, table):
+  def addToDiscard(self, table):
     bigTable = []
     for item in table:
       num = "null"
@@ -198,11 +198,11 @@ class fib_game():
         suit = "C"
       bigTable.append(num + suit)
 
-    requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/add/?cards=%s') % (deckID,self.gameId, ','.join(bigTable))
-def returnPile(deckID):
-  response = requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard/list/' % (deckID))
-  json_data = json.loads(response.text)
-  table = []
-  for item in json_data['piles']['discard']:
-    table.append(cardJsontoRead(item['value'], item['suit']))
-  return table
+    requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/add/?cards=%s') % (self.deckId, self.gameId, ','.join(bigTable))
+  def returnPile(self):
+    response = requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/list/' % (self.deckId, self.gameId))
+    json_data = json.loads(response.text)
+    table = []
+    for item in json_data['piles']['discard']:
+      table.append(cardJsontoRead(item['value'], item['suit']))
+    return table
