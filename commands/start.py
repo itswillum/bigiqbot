@@ -10,11 +10,12 @@ if len(arguments.args) == 2:
         if fibcontroller.runningGamesClasses[fibcontroller.runningGamesNumber.index(int(arguments.args[1]))].joinable == True:
           Game = fibcontroller.runningGamesClasses[fibcontroller.runningGamesNumber.index(int(arguments.args[1]))]
           Game.joinable = False
-          value = fibcontroller.DealsendToPlayers(Game.players)
+          value = fibcontroller.DealsendToPlayers(Game.players, arguments.args[1])
           for player in value:
             Game.UpdatePlayerCards(player[1], value[value.index(player)][2])
           compmessage = ['mul', len(value) + 1, ['ms', arguments.currentmessage.channel, "%s has started fib in lobby %s --------------- It's %s turn and they are on Ace(s)" % (arguments.currentmessage.author, arguments.args[1], "<@%s>" % (Game.findPlayerWith("ACE:spades:").id))]]
           Game.currentTurn = Game.findPlayerWith("ACE:spades:")
+          Game.preturn = Game.currentTurn
           Game.turnnumber = Game.players.index(Game.findPlayerWith("ACE:spades:"))
           #for personm in value:
             #compmessage.append(personm)

@@ -122,7 +122,9 @@ if len(arguments.args) > 0:
           if not arguments.currentmessage.author in game.votedPlayers:
             if arguments.args[1] == "f":
               if game.currentState == "fib":
+                game.AddPlayerCard(game.players[game.turnnumber],game.returnPile())
                 arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
+                
               else:
                 arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were not correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
                 game.AddPlayerCard(arguments.currentmessage.author,game.returnPile())

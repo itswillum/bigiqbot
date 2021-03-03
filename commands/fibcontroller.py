@@ -23,13 +23,13 @@ def cardJsontoRead(num, suit):
     number = num
   except:
     if num == "ACE":
-      number = "Ace"
+      number = "ACE"
     if num == "JACK":
-      number = "Jack"
+      number = "JACK"
     if num == "QUEEN":
-      number = "Queen"
+      number = "QUEEN"
     if num == "KING":
-      number = "King"
+      number = "KING"
   if suit == "SPADES":
     suiter = ":spades:"
   if suit == "HEARTS":
@@ -64,10 +64,12 @@ def draw_cards(deckID, cpp):
 
 
 
-def DealsendToPlayers(players):
+def DealsendToPlayers(players, gameId):
+  global runningGamesClasses
   sendingtable = []
   biggersendingtable = []
   deck_id = get_deck()
+  runningGamesClasses[int(gameId) - 1].set_deckId(deck_id)
   cpp = math.floor(52/len(players))
   for player in players:
     sendingValue = draw_cards(deck_id, cpp)
@@ -108,6 +110,7 @@ class fib_game():
     self.votedPlayers = []
     self.currentState = "null"
     self.currentCardNum = cardsNum[0]
+    self.preturn = "null"
     runningGamesClasses.append(self)
     runningGamesNumber.append(self.gameId)
   def next_turn(self):
@@ -116,6 +119,7 @@ class fib_game():
     if self.turnnumber == len(self.players):
       self.turnnumber = 0
     self.currentTurn = self.players[self.turnnumber]
+    self.preturn = self.players[self.turnnumber]
     try:
       self.currentCardNum = cardsNum[cardsNum.index(self.currentCardNum) + 1]
     except:
@@ -197,12 +201,13 @@ class fib_game():
       if item.split(':')[1] == "clubs":
         suit = "C"
       bigTable.append(num + suit)
-
-    requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/add/?cards=%s') % (self.deckId, self.gameId, ','.join(bigTable))
+    res = ','.join(bigTable)
+    requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/add/?cards=%s' % (self.deckId, self.gameId, res))
   def returnPile(self):
     response = requests.get('https://deckofcardsapi.com/api/deck/%s/pile/discard%s/list/' % (self.deckId, self.gameId))
     json_data = json.loads(response.text)
     table = []
-    for item in json_data['piles']['discard']:
+    #print(json_data)
+    for item in json_data['piles']['discard%d' % (self.gameId)]['cards']:
       table.append(cardJsontoRead(item['value'], item['suit']))
     return table

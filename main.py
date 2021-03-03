@@ -17,7 +17,7 @@ async def on_ready():
 
 
 @client.event
-async def on_message(message): #this is so stupid
+async def on_message(message):
   global going
   global waiting
   global playerContents
@@ -54,4 +54,4 @@ async def on_message(message): #this is so stupid
       
 keep_alive.keep_alive()
 client.run(os.getenv('TOKEN'))
-#importantissimo ^^
+
