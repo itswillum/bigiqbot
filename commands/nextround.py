@@ -1,7 +1,11 @@
-import arguments
-import roulettegame
+from commands import arguments
+from commands import roulettegame
+import discord
+import bot 
 
 danielVariations = ["Daniel", "daniel", "danal", "Danal", "danel", "Danel"] 
+
+needsToStart = discord.Embed(title="You need to start a roulette game.", description="`%sstart`" % (bot.prefix), color=0x00ff00)
 
 def checkforDaniel(table):
   global roulettegame
@@ -18,10 +22,5 @@ if roulettegame.players == True:
   else:
     arguments.messageReturn = roulettegame.rouletteGame.kill()
 else:
-  arguments.messageReturn = "You need to start a roulette game"
-
-
-  
-
-
+  arguments.messageReturn = ['embed', arguments.currentmessage.channel,needsToStart]
 
