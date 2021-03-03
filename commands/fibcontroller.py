@@ -83,14 +83,18 @@ class fib_game():
     runningGamesClasses.append(self)
     runningGamesNumber.append(self.gameId)
   def next_turn(self):
-    global cardNum
+    global cardsNum
     self.turnnumber += 1
     if self.turnnumber == len(self.players):
       self.turnnumber = 0
-    self.currentCardNum = cardNum[cardsNum.index(self.currentCardNum) + 1]
+    self.currentTurn = self.players[self.turnnumber]
+    try:
+      self.currentCardNum = cardsNum[cardsNum.index(self.currentCardNum) + 1]
+    except:
+      self.currentCardNum = cardsNum[0]
     self.currentState = "null"
     self.votedPlayers = []
-    return "It is <@%s> turn and they are on %s" % (self.players[self.currentTurn].id, self.currentCardNum)
+    return "It is <@%s> turn and they are on %s" % (self.players[self.players.index(self.currentTurn)].id, self.currentCardNum)
   def set_deckId(self, deck_id):
     self.deckId = deck_id
   def add_player(self, player):

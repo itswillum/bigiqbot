@@ -22,7 +22,7 @@ def isAllItem(item, table):
   else:
     nitem = cards[item]
   for thing in table:
-    if not thing[0] == nitem:
+    if not thing[0] == str(nitem):
       return "fib"
   
   return "truth"
@@ -105,7 +105,9 @@ if len(arguments.args) > 0:
             fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentTurn = "voting"
             fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentState = isAllItem(fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentCardNum, arguments.args[2:])
             fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].votedPlayers.append(arguments.currentmessage.author)
-            arguments.messageReturn = ['mul', 2, ['ms', arguments.currentmessage.author, "Your response has been recorded and shared to the group"], ['ms', fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].channel, "%s has placed %d aces" % (arguments.currentmessage.author, len(arguments.args) - 2)]]
+            print(fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentState)
+            print(fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentCardNum)
+            arguments.messageReturn = ['mul', 2, ['ms', arguments.currentmessage.author, "Your response has been recorded and shared to the group"], ['ms', fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].channel, "%s has placed %d %s" % (arguments.currentmessage.author, len(arguments.args) - 2, fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentCardNum)]]
       else:
         arguments.messageReturn = "Not your turn IDOT"
     else:
@@ -114,16 +116,22 @@ if len(arguments.args) > 0:
         if not arguments.currentmessage.author in game.votedPlayers:
           if arguments.args[1] == "f":
             if game.currentState == "fib":
-              arguments.messageReturn = "%s has called a fib and they were correct" % (arguments.currentmessage.author)
+              arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
             else:
-              arguments.messageReturn = "%s has called a fib and they were wrong" % (arguments.currentmessage.author)
+              arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were not correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
           if arguments.args[1] == "t":
             game.votedPlayers.append(arguments.currentmessage.author)
             playerList  = []
             for player in game.players:
               if not player in game.votedPlayers:
-                playerList.append(player)
-            arguments.messageReturn = "%s has called a truth waiting on %s" % (arguments.currentmessage.author, ', '.join(playerList))
+                playerList.append(player.name)
+            if len(game.votedPlayers) == len(game.players):
+              if game.currentState == "truth":
+                arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth and they were correct"], ['ms', game.channel, game.next_turn()]]
+              else:
+                arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth and but it was a fib"], ['ms', game.channel, game.next_turn()]]
+            else:
+              arguments.messageReturn = "%s has called a truth waiting on %s" % (arguments.currentmessage.author, ', '.join(playerList))
         else:
           arguments.messageReturn = "%s, you have already voted" % (arguments.currentmessage.author)
       else:

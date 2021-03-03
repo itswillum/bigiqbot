@@ -2,7 +2,6 @@ import discord
 import os
 import keep_alive
 import bot
-import random
 
 client = discord.Client()
 
