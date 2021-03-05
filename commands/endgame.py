@@ -7,7 +7,7 @@ if arguments.args[0] == "fib":
     if game.creator == arguments.currentmessage.author:
       fibcontroller.runningGamesNumber[fibcontroller.runningGamesClasses.index(game)] = -1
       game = "Closed"
-      arguments.currentmessage = "Closed fib lobby %s" % (arguments.args[1])
+      arguments.messageReturn = "Closed fib lobby %s" % (arguments.args[1])
       
     else:
       arguments.messageReturn = "%s, you are not the leader of this lobby" % (arguments.currentmessage.author)
