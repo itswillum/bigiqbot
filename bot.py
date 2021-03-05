@@ -55,3 +55,4 @@ def load_commands(): #commands
   command('ping', 'ping.py', "ping")
   command('flip', 'coinflip.py', "CoinFlip")
   command('suggest', 'suggest.py', 'issue')
+  command('end', 'endgame.py', "EndGame")
