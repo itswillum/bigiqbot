@@ -56,4 +56,4 @@ def load_commands(): #commands
   command('flip', 'coinflip.py', "CoinFlip")
   command('suggest', 'suggest.py', 'issue')
   command('end', 'endgame.py', "EndGame")
-  command('cur', 'currency.py', "Currency")
+  command('cur', 'currencyget.py', "Currency")

@@ -112,7 +112,7 @@ if len(arguments.args) > 0:
             fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].addToDiscard(table)
             arguments.messageReturn = ['mul', 2, ['ms', arguments.currentmessage.author, "Your response has been recorded and shared to the group"], ['ms', fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].channel, "%s has placed %d %s" % (arguments.currentmessage.author, len(arguments.args) - 2, fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1].currentCardNum)]]
       else:
-        arguments.messageReturn = "Not your turn IDOT"
+        arguments.messageReturn = "Not your turn IDOT" 
     else:
       game = fibcontroller.runningGamesClasses[int(arguments.args[0]) - 1]
       if arguments.args[1] == "cards":

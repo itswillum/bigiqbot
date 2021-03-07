@@ -2,25 +2,32 @@
 from commands import arguments
 import requests
 from replit import db
+import currency
 
 
 if len(arguments.args) == 2:
-  try:
-    int(arguments.args[0])
-    db[arguments.currentmessage.author.id] = str(int(db[arguments.currentmessage.author.id]) - int(arguments.args[0]))
-    response = requests.get('http://flipacoinapi.com/json').text
-    if arguments.args[1] == "h" and response == '"Heads"':
-      db[arguments.currentmessage.author.id] = str(int(db[arguments.currentmessage.author.id]) + int(arguments.args[0]) * 2)
-      arguments.messageReturn = "%s ------- yay good job" % (response.split('"')[1])
-    elif arguments.args[1] == "t" and response == '"Tails"':
-      db[arguments.currentmessage.author.id] = str(int(db[arguments.currentmessage.author.id]) + int(arguments.args[0]) * 2)
-      arguments.messageReturn = "%s -------- Yay good job" % (response.split('"')[1])
-    else:
-      arguments.messageReturn = "%s -------- Haha you suck" % (response.split('"')[1])
-
-  except Exception as e:
-    raise e
-    arguments.messageReturn = "Thats not a number to bet"
+  if arguments.args[0] == "h" or arguments.args[0] == "t":
+    try:
+      int(arguments.args[1])
+      if int(currency.getCurr(arguments.currentmessage.author.id)) >= int(arguments.args[1]):
+        currency.addCurr(arguments.currentmessage.author.id, int(arguments.args[1]) * -1)
+        response = requests.get('http://flipacoinapi.com/json')
+        result = response.text.split('"')[1]
+        if arguments.args[0] == "h" and result == "Heads":
+          currency.addCurr(arguments.currentmessage.author.id, int(arguments.args[1]) * 2)
+          arguments.messageReturn = "It was heads and you were correct. Your total is now %s" % (currency.getCurr(arguments.currentmessage.author.id))
+        elif arguments.args[0] == "t" and result == "Tails":
+          currency.addCurr(arguments.currentmessage.author.id, int(arguments.args[1]) * 2)
+          arguments.messageReturn = "It was tails and you were correct. Your total is now %s" % (currency.getCurr(arguments.currentmessage.author.id))
+        else:
+          arguments.messageReturn = "Haha you lose"
+      else:
+        arguments.messageReturn = "You don't have enough points"
+    except Exception as e:
+      raise e
+      arguments.messageReturn = "Not a valid number"
+  else:
+    arguments.messageReturn = "You need to pick heads or tails"
 else:
   response = requests.get('http://flipacoinapi.com/json')
   arguments.messageReturn = response.text.split('"')[1]
