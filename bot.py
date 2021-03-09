@@ -57,3 +57,5 @@ def load_commands(): #commands
   command('suggest', 'suggest.py', 'issue')
   command('end', 'endgame.py', "EndGame")
   command('cur', 'currencyget.py', "Currency")
+  command('daily', 'dailyget.py', "DailyReward")
+  command('sadness', 'sadness.py', "FreeStuff")

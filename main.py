@@ -8,8 +8,6 @@ client = discord.Client()
 bot.load_commands()
 
 
-
-
 @client.event
 async def on_ready():
   print("{0.user} beep boop".format(client))

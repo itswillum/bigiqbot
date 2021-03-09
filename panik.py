@@ -1,12 +1,15 @@
 from replit import db
 import sys
+from datetime import date
 
 #This is for a complete db breakdown. This will only be activated from the console
 
 def clear():
   for key in db.keys():
+    today = date.today()
     db[key] = {
-      'currency':'0'
+      'currency':'0',
+      'last_daily':'%s' % (today.strftime("%m/%d/%y"))
     }
 def setPerson(id, amount):
   db[id] = {
