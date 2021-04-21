@@ -59,3 +59,4 @@ def load_commands(): #commands
   command('cur', 'currencyget.py', "Currency")
   command('daily', 'dailyget.py', "DailyReward")
   command('sadness', 'sadness.py', "FreeStuff")
+  command('invite','invite.py',"Invite")
