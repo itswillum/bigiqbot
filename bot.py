@@ -56,7 +56,7 @@ def load_commands(): #commands
   command('flip', 'coinflip.py', "CoinFlip")
   command('suggest', 'suggest.py', 'issue')
   command('end', 'endgame.py', "EndGame")
-  command('cur', 'currencyget.py', "Currency")
+  command('bal', 'currencyget.py', "Currency")
   command('daily', 'dailyget.py', "DailyReward")
   command('sadness', 'sadness.py', "FreeStuff")
   command('invite','invite.py',"Invite")

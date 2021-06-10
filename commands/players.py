@@ -1,6 +1,5 @@
 from commands import arguments
 from commands import roulettegame
-import bot
 import discord
 
 roulettegamenotstartedEmbed = discord.Embed(title="No roulette game has started", description=" ", color=0x00ff00)

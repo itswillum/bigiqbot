@@ -16,6 +16,13 @@ if len(arguments.args) == 1:
   if arguments.args[0] == "trump":
     trumpHelp = discord.Embed(title="Command: `%strump`" % (bot.prefix), description="The correct way to use this command is `%strump <query>` (without the <>). It'll search to see he tweeted anything containing that query and return it." % (bot.prefix),color=0x00ff00, inline=False)
     arguments.messageReturn  = ['embed', arguments.currentmessage.channel,trumpHelp]
+
+if len(arguments.args) == 1:
+	if arguments.args[0] == 'currency':
+		currencyHelp = discord.Embed(title='Currency commands', description='',color=0x00ff00
+		currencyHelp.add_field(name="%sbal" % (bot.prefix),value='Returns your current balance.')
+		currencyHelp.add_field(name="%sdaily" % (bot.prefix),value='Claims your daily coins.')
+		currencyHelp.add_field(name='%sflip `coins`' % (bot.prefix),value='Gambles some coins with a 50% chance of win or loss (I forgot how to use this command so it doesnt work rn)')
  
 else:
   helpEmbed = discord.Embed(title="Commands", description="Do `%shelp [command]` for more info." % (bot.prefix), color=0x00ff00)
@@ -25,6 +32,5 @@ else:
   helpEmbed.add_field(name="%strump" % (bot.prefix), value="Returns a random tweet from Trump's twitter account.", inline=False) 
   helpEmbed.add_field(name="%sfib" % (bot.prefix), value="Starts a game of fib. Do `%shelp fib` for more info." % (bot.prefix), inline=False) 
   helpEmbed.add_field(name="%sflip" % (bot.prefix), value="Flips a coin, returns the side." , inline=False)
+  helpEmbed.add_field(name="%sbal" % (bot.prefix), value="Displays your balance. Do %shelp currency for more info." , inline=False)
   arguments.messageReturn = ['embed', arguments.currentmessage.channel,helpEmbed]
-#if return = string its a message else it is an embed - luke freimanis.toupper() 2/27/21 5:44:40 PM EST (GMT-5) 	39.46212758103058, -77.43392750619147 
-#the error is in main.py

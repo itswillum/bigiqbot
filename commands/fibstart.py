@@ -123,10 +123,10 @@ if len(arguments.args) > 0:
             if arguments.args[1] == "f":
               if game.currentState == "fib":
                 game.AddPlayerCard(game.players[game.turnnumber],game.returnPile())
-                arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
+                arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were correct." % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
                 
               else:
-                arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were not correct" % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
+                arguments.messageReturn = ['mul', 2,['ms', game.channel, "%s has called a fib and they were not correct." % (arguments.currentmessage.author)], ['ms', game.channel, game.next_turn()]]
                 game.AddPlayerCard(arguments.currentmessage.author,game.returnPile())
             if arguments.args[1] == "t":
               game.votedPlayers.append(arguments.currentmessage.author)
@@ -136,9 +136,9 @@ if len(arguments.args) > 0:
                   playerList.append(player.name)
               if len(game.votedPlayers) == len(game.players):
                 if game.currentState == "truth":
-                  arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth and they were all correct"], ['ms', game.channel, game.next_turn()]]
+                  arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth, and they were all correct."], ['ms', game.channel, game.next_turn()]]
                 else:
-                  arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth but it was a fib"], ['ms', game.channel, game.next_turn()]]
+                  arguments.messageReturn = ['mul', 2,['ms', game.channel, "Everyone has called truth, but it was a fib."], ['ms', game.channel, game.next_turn()]]
               else:
                 arguments.messageReturn = "%s has called a truth waiting on %s" % (arguments.currentmessage.author, ', '.join(playerList))
           else:

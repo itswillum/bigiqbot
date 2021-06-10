@@ -8,4 +8,4 @@ if today.strftime("%m/%d/%y") == currency.getDailyDate(arguments.currentmessage.
 else:
   currency.addCurr(arguments.currentmessage.author.id, 50)
   currency.changeDailyDate(arguments.currentmessage.author.id)
-  arguments.messageReturn = "You have claimed your daily, you total is now %s" % (currency.getCurr(arguments.currentmessage.author.id))
+  arguments.messageReturn = "You have claimed your daily, your balance is now %s" % (currency.getCurr(arguments.currentmessage.author.id))
